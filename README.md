@@ -21,6 +21,9 @@ et on peut voir ceci:
 
 Dans cet exemple, 0x294 en hexadécimal vaut 660, et 0x3ca vaut 970. Ce sont les valeurs de score dans mes fichiers new_memory1 et new_memory2.
 
+![Capture d’écran 2024-11-05 à 10 10 46](https://github.com/user-attachments/assets/7a618d1b-de56-4e7a-bf6a-edd6bfeb867c)
+
+
 ![Capture d’écran 2024-11-05 à 09 40 04](https://github.com/user-attachments/assets/e85bf7cd-ad8f-4170-b699-359308e91d75)
 
 
