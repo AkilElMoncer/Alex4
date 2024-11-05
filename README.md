@@ -47,10 +47,12 @@ Dans scanmem, on saisit d'abord le PID (ici 2027), puis le score actuel (ici 970
 
 ![Capture d’écran 2024-11-05 à 09 46 57](https://github.com/user-attachments/assets/0b0a5152-53c7-43c7-9a54-9389c9c45446)
 
-On retrouve l’adresse identifiée par compare.py et une autre adresse : 55fb19b51c48. C'est cette seconde adresse, l’adresse miroir, qui peut être modifiée. Dans le script modifie.py, on modifie l'adresse en bas de code pour y indiquer 0x55fb19b51c48, et on y place le score souhaité.
+On retrouve l’adresse identifiée par compare.py et une autre adresse : 55fb19b51c48. C'est cette seconde adresse, l’adresse miroir, qui peut être modifiée.
+Dans le script modifie.py, on modifie l'adresse en bas de code pour y indiquer 0x55fb19b51c48, et on y place le score souhaité.
 ![Capture d’écran 2024-11-05 à 09 50 40](https://github.com/user-attachments/assets/c5d68f6c-ea49-45aa-83e6-c774788d650d)
 ![Capture d’écran 2024-11-05 à 09 54 02](https://github.com/user-attachments/assets/6513ad94-829c-4cf7-b112-7992b9d5638b)
 ![Capture d’écran 2024-11-05 à 09 54 25](https://github.com/user-attachments/assets/f2a4dea4-36de-4063-9d58-8abf4debeba8)
+(nous pouvons aussi utilisé la commande <set> pour modifier la valeur du score directement sur le terminal)
 
 Et voilà, le score a bien été modifié !
 
