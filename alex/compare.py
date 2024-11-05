@@ -19,15 +19,15 @@ def compare_arrays(array1, array2):
 
 if __name__ == "__main__":
     # Charger les valeurs des deux fichiers
-    addresses1, values1 = load_memory_from_file("new_memory2.txt")
-    addresses2, values2 = load_memory_from_file("new_memory3.txt")
+    addresses1, values1 = load_memory_from_file("new_memory.txt")
+    addresses2, values2 = load_memory_from_file("new_memory1.txt")
 
     # Afficher les adresses chargées
-    print("Adresses et valeurs dans new_memory2.txt :")
+    print("Adresses et valeurs dans new_memory.txt :")
     for address, value in zip(addresses1, values1):
         print(f"Adresse: {hex(address)}, Valeur: {hex(value)}")
 
-    print("\nAdresses et valeurs dans new_memory3.txt :")
+    print("\nAdresses et valeurs dans new_memory1.txt :")
     for address, value in zip(addresses2, values2):
         print(f"Adresse: {hex(address)}, Valeur: {hex(value)}")
 
