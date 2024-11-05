@@ -2,17 +2,9 @@
 ps aux | grep alex4
 
 
-scanmem -p 2022
+scanmem
 
-gdb -p 2022
-
-
-sudo scanmem
-# Attacher le processus
-> pid 2019
-# Chercher la valeur actuelle du score
-> find 100
-# Jouer un peu pour changer le score à, par exemple, 110
-> find 110
-# Une fois l'adresse unique identifiée, définissez la nouvelle valeur
-> set 1000
+ pid 2019
+>  100
+>  110
+>  list
