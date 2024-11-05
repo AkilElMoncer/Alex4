@@ -1,3 +1,10 @@
+##ALEX4
+##AUTHOR:
+##EL Moncer Akil
+##Alexanian Eric
+##Wache Tristan 
+
+
 Tout d'abord, lors du démarrage du jeu, on commence au niveau 1. Pour récupérer le PID du jeu, on utilise la commande suivante : 
   ps aux | grep alex4
 
