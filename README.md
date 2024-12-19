@@ -118,6 +118,3 @@ Exemple :
 - Les outils utilisés (scripts Python, scanmem) ont permis d'identifier et de manipuler les adresses mémoire du jeu de manière efficace.
 
 ---
-
-**Remarque :** Ce projet est uniquement destiné à des fins éducatives. Les techniques présentées ne doivent pas être utilisées de manière malveillante.
-
