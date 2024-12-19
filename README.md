@@ -1,67 +1,123 @@
-##ALEX4
-##AUTHOR:
-##EL Moncer Akil
-##Alexanian Eric
-##Wache Tristan 
+# Modification de Score dans le Jeu ALEX4
 
+## **Auteurs**
+- **El Moncer Akil**
+- **Alexanian Eric**
+- **Wache Tristan**
 
-Tout d'abord, lors du démarrage du jeu, on commence au niveau 1. Pour récupérer le PID du jeu, on utilise la commande suivante : 
-  ps aux | grep alex4
+---
 
-![Capture d’écran 2024-11-05 à 09 15 42](https://github.com/user-attachments/assets/53f88eec-25e0-4a68-8a17-07ba92eab7f6)
+## **1. Introduction**
 
-Ensuite, grâce au script Python ptrace2_sc.py, on peut créer un fichier contenant toutes les adresses mémoire en format .txt en exécutant la commande :
-  python3 ptrace2_sc.py
+Dans cet exercice éducatif, nous expliquons comment modifier le score dans le jeu ALEX4 en manipulant directement les adresses mémoire du jeu. Les étapes suivantes incluent l'identification du PID, l'analyse des différences de mémoire et la modification du score via des scripts Python et des outils comme `scanmem`.
 
-![Capture d’écran 2024-11-05 à 09 29 13](https://github.com/user-attachments/assets/89bf823e-ea1c-49ca-bccc-02bacb50575b)
+---
 
-Après avoir modifié le score dans le jeu, il faut modifier le nom de fichier dans le code ptrace2_sc.py. Le premier fichier généré s’appelle new_memory.txt et le deuxième new_memory2.txt et ils auront du coup deux scores differents
+## **2. Identifier le PID du jeu**
 
-![Capture d’écran 2024-11-05 à 09 33 31](https://github.com/user-attachments/assets/420db7dc-4400-45a8-a2ff-f8e40392e59a)
+1. Lancez le jeu ALEX4.
+2. Identifiez le PID du processus en exécutant la commande suivante :
+   ```bash
+   ps aux | grep alex4
+   ```
 
+   Exemple de résultat :
+   ![Capture PID](https://github.com/user-attachments/assets/53f88eec-25e0-4a68-8a17-07ba92eab7f6)
 
-En utilisant le script compare.py, on peut comparer les deux fichiers texte pour voir les différences et identifier l'adresse où le score est stocké:
+---
+
+## **3. Générer les fichiers mémoire**
+
+### Étape 1 : Exécuter `ptrace2_sc.py`
+Utilisez le script Python `ptrace2_sc.py` pour générer un fichier contenant les adresses mémoire :
+```bash
+python3 ptrace2_sc.py
+```
+
+Le fichier généré est nommé **`new_memory.txt`**.
+
+### Étape 2 : Modifier le score dans le jeu
+1. Augmentez le score dans le jeu.
+2. Exécutez à nouveau `ptrace2_sc.py` pour générer un deuxième fichier : **`new_memory2.txt`**.
+
+   Exemple de capture :
+   ![Fichiers mémoire générés](https://github.com/user-attachments/assets/420db7dc-4400-45a8-a2ff-f8e40392e59a)
+
+---
+
+## **4. Comparer les fichiers mémoire**
+
+Utilisez le script `compare.py` pour identifier les différences entre les deux fichiers mémoire :
+```bash
 python3 compare.py
+```
 
-et on peut voir ceci:
-![Capture d’écran 2024-11-05 à 09 35 59](https://github.com/user-attachments/assets/f622928d-e3bb-488a-a5c5-38ecd01f05a5)
+Exemple de résultat :
+![Résultats de compare.py](https://github.com/user-attachments/assets/f622928d-e3bb-488a-a5c5-38ecd01f05a5)
 
-Dans cet exemple, 0x294 en hexadécimal vaut 660, et 0x3ca vaut 970. Ce sont les valeurs de score dans mes fichiers new_memory1 et new_memory2.
+### Identification des adresses
+- Dans cet exemple, les adresses 0x294 et 0x3ca représentent respectivement les scores 660 et 970.
+- L'adresse mémoire correspondante est confirmée à la ligne 15194 :
+   ![Adresse mémoire](https://github.com/user-attachments/assets/87879d2b-4583-499b-8513-2e71af5fca09)
 
-![Capture d’écran 2024-11-05 à 10 10 46](https://github.com/user-attachments/assets/7a618d1b-de56-4e7a-bf6a-edd6bfeb867c)
+---
 
+## **5. Modifier le score avec scanmem**
 
-![Capture d’écran 2024-11-05 à 09 40 04](https://github.com/user-attachments/assets/e85bf7cd-ad8f-4170-b699-359308e91d75)
+### Étape 1 : Lancer `scanmem`
+1. Exécutez `scanmem` et saisissez le PID du jeu :
+   ```bash
+   scanmem
+   > pid 2027
+   ```
 
+2. Entrez le score actuel (exemple : 970).
 
-Donc l'adresse se trouve bien a la ligne 15194: 
+### Étape 2 : Identifier les adresses restantes
+1. Augmentez le score dans le jeu (par exemple, à 1010).
+2. Les adresses restantes incluent l'adresse principale et une adresse miroir :
+   ![Adresses identifiées](https://github.com/user-attachments/assets/0b0a5152-53c7-43c7-9a54-9389c9c45446)
 
-![Capture d’écran 2024-11-05 à 09 39 31](https://github.com/user-attachments/assets/87879d2b-4583-499b-8513-2e71af5fca09)
-Ici il y a un écart de 1 car la ligne commence à 0
+---
 
-Ensuite, on utilise scanmem avec les étapes suivantes :
-![Capture d’écran 2024-11-05 à 09 42 34](https://github.com/user-attachments/assets/f6a9627e-5778-4254-a136-25e3f067d4ef)
-![Capture d’écran 2024-11-05 à 09 43 03](https://github.com/user-attachments/assets/8a061975-1ac8-457a-b285-08121f1c71cc)
+## **6. Modifier le score avec modifie.py**
 
-Dans scanmem, on saisit d'abord le PID (ici 2027), puis le score actuel (ici 970). Comme il y a plusieurs adresses correspondantes, on augmente un peu le score dans le jeu (par exemple, on l’augmente à 1010). Ensuite, il ne reste que deux adresses en commun :
+### Étape 1 : Modifier le script
+Dans `modifie.py`, remplacez l'adresse par celle identifiée :
+```python
+address = 0x55fb19b51c48  # Exemple d'adresse miroir
+score = 9999             # Nouveau score
+```
 
-![Capture d’écran 2024-11-05 à 09 46 57](https://github.com/user-attachments/assets/0b0a5152-53c7-43c7-9a54-9389c9c45446)
+### Étape 2 : Exécuter le script
+```bash
+python3 modifie.py
+```
 
-On retrouve l’adresse identifiée par compare.py et une autre adresse : 55fb19b51c48. C'est cette seconde adresse, l’adresse miroir, qui peut être modifiée.
-Dans le script modifie.py, on modifie l'adresse en bas de code pour y indiquer 0x55fb19b51c48, et on y place le score souhaité.
-![Capture d’écran 2024-11-05 à 09 50 40](https://github.com/user-attachments/assets/c5d68f6c-ea49-45aa-83e6-c774788d650d)
-![Capture d’écran 2024-11-05 à 09 54 02](https://github.com/user-attachments/assets/6513ad94-829c-4cf7-b112-7992b9d5638b)
-![Capture d’écran 2024-11-05 à 09 54 25](https://github.com/user-attachments/assets/f2a4dea4-36de-4063-9d58-8abf4debeba8)
-(nous pouvons aussi utilisé la commande <set> pour modifier la valeur du score directement sur le terminal)
+### Résultat attendu
+- Le score est modifié dans le jeu, comme illustré ci-dessous :
+   ![Modification réussie](https://github.com/user-attachments/assets/c5d68f6c-ea49-45aa-83e6-c774788d650d)
 
-Et voilà, le score a bien été modifié !
+---
 
+## **7. Modifier directement avec scanmem**
 
+Vous pouvez également modifier le score directement dans le terminal avec `scanmem` :
+```bash
+> set 9999
+```
 
+Exemple :
+![Modification via scanmem](https://github.com/user-attachments/assets/6513ad94-829c-4cf7-b112-7992b9d5638b)
 
+---
 
+## **8. Résultat Final**
 
+- Le score a été modifié avec succès dans le jeu ALEX4.
+- Les outils utilisés (scripts Python, scanmem) ont permis d'identifier et de manipuler les adresses mémoire du jeu de manière efficace.
 
+---
 
+**Remarque :** Ce projet est uniquement destiné à des fins éducatives. Les techniques présentées ne doivent pas être utilisées de manière malveillante.
 
-  
